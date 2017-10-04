@@ -5,17 +5,17 @@ using UnityEngine;
 public class SnakeMovment : MonoBehaviour {
 
     //Array
-    public List<Transform> BodyParts = new List<Transform>();
+    public List<Rigidbody> BodyParts = new List<Rigidbody>();
 
     public float MinDistance = 1.0f;
     public int beginsize;
-    public float speed = 1.0f;
+    public float speed = 5.0f;
     public float rotationSpeed = 50;
     public GameObject Bodyprefab;
 
     private float dis;
-    private Transform curBodyPart;
-    private Transform PrevBodyPart;
+    private Rigidbody curBodyPart;
+    private Rigidbody PrevBodyPart;
 
 
 	// Use this for initialization
@@ -53,7 +53,7 @@ public class SnakeMovment : MonoBehaviour {
     public void Move()
     {
         float curspeed = speed;
-        BodyParts[0].Translate(BodyParts[0].forward * curspeed * Time.smoothDeltaTime, Space.World);
+        BodyParts[0].GetComponent<Rigidbody>().AddForce(BodyParts[0].transform.forward * curspeed * Time.smoothDeltaTime);
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -62,7 +62,7 @@ public class SnakeMovment : MonoBehaviour {
 
         if (Input.GetAxis("Horizontal") != 0)
         {
-            BodyParts[0].Rotate(Vector3.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
+            BodyParts[0].GetComponent<Rigidbody>().AddForce(Vector3.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
         }
 
         for (int i = 1; i<BodyParts.Count; i++)
@@ -87,9 +87,7 @@ public class SnakeMovment : MonoBehaviour {
 
     public void AddBodyPart()
     {
-        Transform newpart = (Instantiate(Bodyprefab, BodyParts[BodyParts.Count - 1].position, BodyParts[BodyParts.Count - 1].rotation) as GameObject).transform;
-
-        newpart.SetParent(transform);
+        Rigidbody newpart = (Instantiate(Bodyprefab.GetComponent<Rigidbody>(), BodyParts[BodyParts.Count - 1].position, BodyParts[BodyParts.Count - 1].rotation));
 
         BodyParts.Add(newpart);
 
