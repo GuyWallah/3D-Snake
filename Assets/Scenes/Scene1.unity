@@ -203,8 +203,8 @@ MonoBehaviour:
   BodyParts:
   - {fileID: 908585179}
   MinDistance: 1.5
-  beginsize: 5
-  speed: 5
+  beginsize: 2
+  speed: 3
   rotationSpeed: 50
   Bodyprefab: {fileID: 1816607499785640, guid: 4db22891fa9bbaa4ea9fda6684516e8e, type: 2}
 --- !u!4 &702893149
@@ -613,11 +613,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4941318156097854, guid: 67ed78dc18381de4c9cd605c9e3597c5, type: 2}
       propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54823090627995846, guid: 67ed78dc18381de4c9cd605c9e3597c5,
-        type: 2}
-      propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

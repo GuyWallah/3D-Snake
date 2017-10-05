@@ -34,16 +34,21 @@ public class SnakeMovment : MonoBehaviour {
 
         Move();
 
+        //Get Cursor Back
         if (Input.GetKey(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = (true);
         }
+
+        //Remove Cursor
         if (Input.GetKey(KeyCode.P))
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = (false);
         }
+
+        //replace cursor
         if (Input.GetKey(KeyCode.Q))
         {
             AddBodyPart();
@@ -52,19 +57,25 @@ public class SnakeMovment : MonoBehaviour {
 
     public void Move()
     {
+        //Always move forward
         float curspeed = speed;
         BodyParts[0].GetComponent<Rigidbody>().AddForce(BodyParts[0].transform.forward * curspeed * Time.smoothDeltaTime);
 
+        //Double Speed
         if (Input.GetKey(KeyCode.W))
         {
             curspeed *= 2;
         }
 
+        //Move Left and Right
+        Vector3 dir=Vector3.Cross  (BodyParts[0].GetComponent<Rigidbody>().transform.forward, Vector3.up);
+
         if (Input.GetAxis("Horizontal") != 0)
         {
-            BodyParts[0].GetComponent<Rigidbody>().AddForce(Vector3.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
+            BodyParts[0].GetComponent<Rigidbody>().AddForce(dir * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
         }
 
+        //Move like a Snake and Keep min Distance
         for (int i = 1; i<BodyParts.Count; i++)
         {
             curBodyPart = BodyParts[i];
